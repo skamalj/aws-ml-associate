@@ -1,0 +1,10 @@
+# Core
+boto3>=1.42
+sagemaker>=2.240,<3        # the notebooks use SageMaker Python SDK v2 (Estimator, Pipelines, Model Monitor ...)
+pandas
+numpy
+pyarrow
+scikit-learn
+matplotlib
+pillow
+jupyter
