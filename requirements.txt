@@ -5,6 +5,8 @@ pandas
 numpy
 pyarrow
 scikit-learn
+scipy
+requests
 matplotlib
 pillow
 jupyter
@@ -25,3 +27,6 @@ bert-score                 # pulls in torch and downloads a small model on first
 strands-agents[a2a]
 bedrock-agentcore
 mcp
+
+# Bedrock API keys demo (4.3b)
+aws-bedrock-token-generator

@@ -88,6 +88,7 @@ whether each is hands-on (✅), written but off by default (🔒), or notes only
   The identity needs to create S3 buckets, IAM roles and the services used (an admin-like user is simplest).
 - A region with Amazon Bedrock, S3 Vectors and AgentCore, for example `us-east-1` or `us-west-2`.
 - Python 3.10+ and Jupyter (local, or SageMaker Studio / JupyterLab).
+- The **AWS CLI** (a few cells in 3.2a call `aws ...`). Docker is optional (only one 🔒 section uses it).
 - Access to the Bedrock models used: Amazon Nova Micro/Lite/Pro, Amazon Titan Text Embeddings V2,
   Titan Multimodal Embeddings. The setup notebook tests this.
 
@@ -125,6 +126,8 @@ a few minutes the first time (for example, training the fraud model).
 | `SAFEDRIVE_TEXT_MODEL`, `_SMALL_MODEL`, `_LARGE_MODEL` | Nova Lite / Micro / Pro inference profiles | Bedrock text models |
 | `SAFEDRIVE_EMBED_MODEL` | `amazon.titan-embed-text-v2:0` | Embedding model |
 | `RUN_EXPENSIVE` | `false` | Set to `true` to run 🔒 cells |
+
+**Time.** Most notebooks take 30-60 minutes to run end to end, mainly waiting for jobs and endpoints.
 
 ## Cost and safety
 
@@ -174,6 +177,24 @@ requirements.txt
 | `ResourceLimitExceeded` on a SageMaker job or endpoint | Service quota for that instance type is 0; request an increase or change the instance type |
 | A cell fails on an unknown parameter | The service API changed; run `python tools/nbcheck.py <notebook>` with your boto3 version to locate it |
 | A catch-up cell takes long | It is building an earlier step (training job, Knowledge Base); let it finish once |
+
+## Cells most likely to need a fix
+
+The notebooks were not run against AWS, so treat these areas as "check first if something fails":
+
+| Area | Notebooks | Why |
+|---|---|---|
+| Bedrock AgentCore (Runtime, Gateway, Memory, Observability) | 3.1b, 3.2b, 4.1b | New and fast-changing APIs; region availability |
+| Bedrock evaluation jobs, batch inference, fine-tuning (mostly 🔒) | 2.2b, 2.3b, 3.2b, 4.1b, 4.2 | Request formats differ per model; some model IDs are region-limited |
+| Reranking, prompt caching, prompt routing | 3.2b, 4.2 | Depend on model and region support (wrapped in try/except) |
+| Glue Data Quality rules, DataBrew recipe and profile output | 1.2a, 1.3 | Rule syntax and output field names written from the documentation |
+| Clarify and Model Monitor result parsing | 1.3, 2.3a, 4.1a | Output JSON paths written from the documentation |
+| Canary deployment and auto scaling | 3.3a, 3.2a | Need instance quota (up to 4 x `ml.m5.large` for the canary) |
+| Spot and 2-instance training | 2.2a | New accounts may have zero quota (handled, the job is skipped) |
+| Results on the synthetic images | 1.2b, 2.1 | Rekognition, Textract queries and image embeddings may give generic output on drawings |
+
+Timing matters in a few places (Firehose delivery, Feature Store offline store, CloudTrail events, Cost
+Explorer tags): if a "wait" cell finds nothing, wait a few minutes and re-run it, as the notebook text says.
 
 ## What is intentionally not covered
 

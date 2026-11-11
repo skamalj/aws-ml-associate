@@ -6,6 +6,7 @@ Source: [MLA-C02 exam guide](https://docs.aws.amazon.com/aws-certification/lates
 - 🔒 code is written but off by default (costs money or needs a manual prerequisite such as a human workforce or Docker)
 - 📝 intentionally notes / decision table only
 
+Checked after writing: every skill ID below appears in a section heading of its mapped notebook.
 Every notebook section heading carries its skill ID, so you can search a notebook for e.g. `1.2.7`.
 
 ## Domain 1: Data Preparation for ML and AI (28%)
@@ -92,14 +93,14 @@ Every notebook section heading carries its skill ID, so you can search a noteboo
 | 3.2.8 | Retrieval pipelines | 3.2b | ✅ | Retrieve, RetrieveAndGenerate, custom pipeline |
 | 3.2.9 | Agent state management | 3.2b | ✅ | Session attributes; AgentCore Memory |
 | 3.2.10 | GPU scaling | 3.2a | 🔒 | GPU metrics, scale-to-zero config |
-| 3.2.11 | Agentic infrastructure | 3.1b | ✅ | Deploy to AgentCore Runtime |
+| 3.2.11 | Agentic infrastructure | 3.1b | ✅ | Deploy a Strands agent to AgentCore Runtime (direct code deployment, no Docker) |
 | 3.3.1 | Deployment strategies, rollback | 3.3a | ✅ | Canary with alarm auto-rollback |
 | 3.3.2 | Code* services | 3.3a | ✅ | CodeBuild and CodePipeline created; CodeCommit, CodeDeploy and CodeConnections as notes; troubleshooting table |
 | 3.3.3 | Training and inference jobs | 3.3a | ✅ | Pipeline steps |
 | 3.3.4 | Automated tests in CI/CD | 3.3a | ✅ | Unit test, model-quality gate, endpoint smoke test |
 | 3.3.5 | Retraining mechanisms | 3.3a | ✅ | EventBridge triggers the pipeline |
 | 3.3.6 | Model versions | 3.3a | ✅ | Model Registry approval; MLflow |
-| 3.3.7 | Manage prompts | 3.3b | ✅ | Prompt Management versions and variants |
+| 3.3.7 | Manage prompts | 3.3b | ✅ | Prompt Management: create, compare two candidate prompts in code, publish versions, invoke by prompt ARN |
 | 3.3.8 | Agent pipelines and versions | 3.3b | ✅ | Agent versions and aliases, runtime versions |
 | 3.3.9 | Prompt and model testing | 3.3b | ✅ | Prompt regression test suite |
 | 3.3.10 | Fine-tuned model versioning | 3.3b | 🔒 | Code depends on the 🔒 fine-tuning job |
