@@ -78,6 +78,9 @@ whether each is hands-on (✅), written but off by default (🔒), or notes only
 2. **Key points for the exam** - a few bullets and "choose X when..." tables.
 3. **Setup + catch-up cell** - loads shared config and builds anything an earlier notebook would have made.
 4. **One section per skill** - the heading carries the skill ID (search for `2.2.3`), a short note, then small code cells with one activity each.
+   Two markers appear only where they add something:
+   - 🖥️ **Console check** - after an action, where to look in the AWS console and what to notice.
+   - 📘 **Concept** - a fuller explanation of an idea that exam questions depend on.
 5. **Exam traps** and a **5-question quiz** (answers are collapsed).
 6. **Cleanup** - deletes what the notebook created, except things later notebooks need.
 
