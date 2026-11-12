@@ -19,8 +19,8 @@ Every notebook section heading carries its skill ID, so you can search a noteboo
 | 1.1.4 | Streaming ingestion | 1.1 | ✅ | Kinesis Data Streams and Firehose to S3; MSK and Flink as notes |
 | 1.1.5 | Data formats | 1.1 | ✅ | CSV vs JSON vs Parquet vs ORC, size and read-time comparison |
 | 1.1.6 | Merge multiple sources | 1.1 | ✅ | pandas join, Glue crawler with Athena join, Glue Spark script |
-| 1.1.7 | Vector databases | 1.1 | ✅ | S3 Vectors index runs; OpenSearch Serverless 🔒; pgvector SQL shown |
-| 1.1.8 | Diverse data types | 00, 1.1 | ✅ | Text, image and audio files stored with metadata |
+| 1.1.7 | Vector databases | 1.1, 1.1b | ✅ | First look in 1.1. In 1.1b: load text, note and image vectors into S3 Vectors and OpenSearch Serverless (💰 hourly cost); filters, keyword, hybrid and image search; when to use which; pgvector SQL shown |
+| 1.1.8 | Diverse data types | 00, 1.1, 1.1b | ✅ | Text, image and audio files stored with metadata; text and image embeddings stored as vectors |
 | 1.1.9 | Ingest into Feature Store | 1.1 | ✅ | Create a feature group and ingest |
 | 1.2.1 | Transform with AWS tools | 1.2a | ✅ | Glue job, DataBrew recipe, SageMaker Processing; EMR and Data Wrangler as notes |
 | 1.2.2 | Create and manage features | 1.2a | ✅ | Online and offline store reads, point-in-time query |
