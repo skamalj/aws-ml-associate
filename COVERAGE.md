@@ -26,7 +26,7 @@ Every notebook section heading carries its skill ID, so you can search a noteboo
 | 1.2.2 | Create and manage features | 1.2a | ✅ | Online and offline store reads, point-in-time query |
 | 1.2.3 | Transform streaming data | 1.2a | ✅ | Lambda transform on telematics; Spark streaming as notes |
 | 1.2.4 | Feature engineering | 1.2a | ✅ | Scaling, standardization, binning, log, splitting, encoding |
-| 1.2.5 | Embedding models | 1.2b | ✅ | Titan text and multimodal embeddings; dimensions |
+| 1.2.5 | Embedding models | 1.2b | ✅ | Titan text and multimodal embeddings; dimensions; float vs binary embeddings; dense vs sparse |
 | 1.2.6 | Text pre-processing | 1.2b | ✅ | Tokenization and token counts; domain augmentation with an FM |
 | 1.2.7 | RAG document preparation | 1.2b | ✅ | Fixed, semantic and hierarchical chunking; metadata files |
 | 1.2.8 | Mask, redact, anonymize | 1.2b | ✅ | Comprehend PII detection and redaction, hashing; Macie as a note |
@@ -59,7 +59,7 @@ Every notebook section heading carries its skill ID, so you can search a noteboo
 | 2.2.6 | Combine models | 2.2a | ✅ | Ensemble; cheap-model-first cascade |
 | 2.2.7 | Basic hyperparameters | 2.2a | ✅ | Epochs, batch size, learning-rate effect |
 | 2.2.8 | Prompt engineering, fine-tuning | 2.2b | ✅ | Converse API, few-shot, JSON output, tool use; fine-tuning job 🔒 |
-| 2.2.9 | Optimize retrieval and embeddings | 2.2b | ✅ | Chunk size and embedding dimension vs recall@k |
+| 2.2.9 | Optimize retrieval and embeddings | 2.2b | ✅ | Measured with recall@k and MRR: chunk size, embedding dimension, float vs binary, sparse vs dense vs hybrid, hierarchical (parent-child) retrieval, query rewriting |
 | 2.3.1 | Reproducible experiments | 2.3a, 2.3b | ✅ | MLflow on SageMaker; Bedrock evaluation job; prompt versions |
 | 2.3.2 | Baselines, drift detection | 2.3a | ✅ | Baseline created here; drift run in 4.1a |
 | 2.3.3 | Shadow vs production variant | 4.1a | ✅ | Run in 4.1a, where the endpoints exist; notes in 2.3a |
