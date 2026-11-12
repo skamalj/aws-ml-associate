@@ -117,6 +117,33 @@ Then run `00_setup/00_environment_and_data.ipynb` top to bottom, and continue wi
 jump to any notebook: its catch-up cell (`C.ensure_...`) builds the missing pieces, which can take
 a few minutes the first time (for example, training the fraud model).
 
+**Cleanup between notebooks.** Every notebook ends with a **Cleanup** section. It starts with a table,
+*"Before you delete: what later notebooks use"*, that lists what the cleanup cells keep, which later
+notebooks use it, and what happens if you delete it anyway. The shared resources are:
+
+| Kept resource | Created in | Used by |
+|---|---|---|
+| Raw data in `s3://<bucket>/safedrive/raw/` | 00 | every notebook |
+| DynamoDB table `safedrive-claims` | 1.1 | 3.1b and every notebook that calls the agent (3.2b, 3.3b, 4.1b, 4.2) |
+| Glue database `safedrive` | 1.1 | 1.3 |
+| Feature group `safedrive-claims-fg` | 1.1 | 1.2a |
+| Vector bucket `safedrive-vectors-<account>` | 1.1 / 1.1b | 1.1b, 3.2b and every notebook that uses the Knowledge Base |
+| Training files in `safedrive/processed/` | 1.2a | 1.3, 2.2a, 2.3a, 3.1a, 3.2a, 3.3a, 4.1a, 4.2, 4.3a |
+| Policy chunks with embeddings (`chunks.parquet`) | 1.2b | 1.1b, 2.2b, 2.3b, 4.2, 4.3b |
+| Fine-tuning files | 1.2b, cleaned in 1.3 | 2.2b |
+| Guardrail `safedrive-guardrail` | 1.3 | 3.2b, 4.3b |
+| Fraud model artifacts (v1, tuned v2) | 2.2a | 2.3a, 3.1a, 3.2a, 3.3a, 4.1a |
+| Serverless endpoint `safedrive-fraud` | 3.1a | 3.3a, 4.2, 4.3a |
+| Bedrock agent and Lambda `safedrive-claim-lookup` | 3.1b | 3.2b, 3.3b, 4.1b, 4.2 |
+| AgentCore runtime `safedrive_claims_strands` | 3.1b | 3.3b, 4.1b (optional parts) |
+| Knowledge Base `safedrive-policy-kb` | 3.2b | 3.3b, 4.1b, 4.3b |
+| Pipeline `safedrive-fraud-pipeline` | 3.3a | 4.1a (optional) |
+| Bedrock invocation logging and its log group | 4.1b | 4.2 |
+
+None of these bills while idle, apart from a little storage. Most are rebuilt by the next notebook's
+catch-up cell if they are missing, which costs a few minutes. The AgentCore runtime, the pipeline and
+invocation logging are not rebuilt: the parts that use them are skipped or return nothing.
+
 **Configuration** (all optional, environment variables)
 
 | Variable | Default | Meaning |
