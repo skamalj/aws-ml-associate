@@ -91,30 +91,56 @@ whether each is hands-on (✅), written but off by default (🔒), or notes only
 - An AWS **sandbox** account and credentials that already work (`aws sts get-caller-identity`).
   The identity needs to create S3 buckets, IAM roles and the services used (an admin-like user is simplest).
 - A region with Amazon Bedrock, S3 Vectors and AgentCore, for example `us-east-1` or `us-west-2`.
-- Python 3.10+ and Jupyter (local, or SageMaker Studio / JupyterLab).
+- Python 3.10+ and [uv](https://docs.astral.sh/uv/). uv creates the environment and installs Jupyter for you.
 - The **AWS CLI** (a few cells in 3.2a call `aws ...`). Docker is optional (only one 🔒 section uses it).
 - Access to the Bedrock models used: Amazon Nova Micro/Lite/Pro, Amazon Titan Text Embeddings V2,
   Titan Multimodal Embeddings. The setup notebook tests this.
 
 **Steps**
 
-```bash
-git clone <this repo> && cd aws-ml-associate
-```
+This project uses [uv](https://docs.astral.sh/uv/) as its package manager. Install it once if you do not have it:
 
 ```bash
-pip install -r requirements.txt
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
+
+Get the code:
+
+```bash
+git clone https://github.com/skamalj/aws-ml-associate.git && cd aws-ml-associate
+```
+
+Create the virtual environment (`.venv/`) with the exact package versions from `uv.lock`:
+
+```bash
+uv sync
+```
+
+Choose the region and start Jupyter inside that environment:
 
 ```bash
 export AWS_REGION=us-east-1
 ```
 
 ```bash
-jupyter lab
+uv run jupyter lab
 ```
 
 Then run `00_setup/00_environment_and_data.ipynb` top to bottom, and continue with 1.1.
+
+**Working with uv**
+
+| Task | Command |
+|---|---|
+| Add a package | `uv add <package>` (updates `pyproject.toml` and `uv.lock`) |
+| Update all packages | `uv lock --upgrade` then `uv sync` |
+| Run a script or tool in the environment | `uv run python tools/nbcheck.py` |
+| VS Code | Open the folder and pick `.venv` as the notebook kernel |
+| SageMaker Studio or another kernel you cannot replace | Run the first code cell of the setup notebook: it installs the packages from `pyproject.toml` into the running kernel with `uv pip install` |
+| You need a `requirements.txt` | `uv export --no-hashes -o requirements.txt` |
+
+A few notebooks contain `pip install` lines inside a Dockerfile or a CodeBuild buildspec. Those run in a
+container or in CodeBuild, not on your machine, and are left as they are.
 
 **Order.** The notebooks follow the story, so going in order (1.1 → 4.3b) is best. You can also
 jump to any notebook: its catch-up cell (`C.ensure_...`) builds the missing pieces, which can take
@@ -195,7 +221,8 @@ tools/
   nbcheck.py          static checker (syntax, cell size, boto3 parameters)
   build_nb.py         converts a jupytext .py file to .ipynb
 COVERAGE.md           skill-by-skill coverage map
-requirements.txt
+pyproject.toml        dependencies (managed with uv)
+uv.lock               exact resolved versions
 ```
 
 **Shared state.** Notebooks pass names and IDs to each other through
